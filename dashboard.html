@@ -153,7 +153,7 @@
                             </button>
                         </div>
 
-                        <!-- COLUMNA DERECHA: RESULTADO, PLANTILLAS E IMAGEN GENERADA -->
+                        <!-- COLUMNA DERECHA: RESULTADO Y CREATIVO + ADS -->
                         <div class="lg:col-span-2 space-y-6">
                             
                             <!-- Caja de Resultados -->
@@ -170,13 +170,13 @@
                                 <div class="flex-1 overflow-y-auto bg-[#0d131f] border border-gray-800 rounded-xl p-5 text-gray-300 text-sm leading-relaxed whitespace-pre-wrap" id="ia-output">Tu copia publicitaria optimizada para vender aparecerá en este recuadro apenas configures los datos de la izquierda y le des al botón...</div>
                             </div>
 
-                            <!-- Visualizador de Imagen / Creativo IA -->
-                            <div class="bg-[#111827] rounded-2xl p-6 border border-gray-800">
-                                <div class="flex items-center gap-2.5 pb-4 border-b border-gray-800 mb-4">
+                            <!-- VISUALIZADOR DE IMAGEN Y MONETIZACIÓN AUTOMÁTICA -->
+                            <div class="bg-[#111827] rounded-2xl p-6 border border-gray-800 space-y-6">
+                                <div class="flex items-center gap-2.5 pb-4 border-b border-gray-800">
                                     <i class="fa-solid fa-image text-purple-400"></i>
                                     <h3 class="font-bold text-gray-200">Sugerencia de Creativo (Multimedia)</h3>
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center mb-6">
                                     <div class="bg-[#0d131f] rounded-xl border border-gray-800 h-44 flex flex-col items-center justify-center text-center p-4" id="ia-image-box">
                                         <i class="fa-solid fa-photo-film text-gray-600 text-3xl mb-2"></i>
                                         <p class="text-xs text-gray-400">La sugerencia visual y prompts estéticos optimizados para Midjourney/Canva saldrán aquí.</p>
@@ -184,6 +184,36 @@
                                     <div class="space-y-3">
                                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wide">Ángulo de Venta Recomendado</h4>
                                         <p class="text-xs text-gray-300 bg-[#0d131f] p-3 rounded-lg border border-gray-800" id="ia-angulo-box">Muestra el "Antes" (frustración, falta de dinero o tiempo) contra el "Después" utilizando el producto como puente.</p>
+                                    </div>
+                                </div>
+
+                                <!-- 💰 ZONA DE ADS NATIVOS / MONETIZACIÓN -->
+                                <div class="border-t border-gray-800 pt-6">
+                                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3"><i class="fa-solid fa-rectangle-ad mr-1"></i> Herramientas Recomendadas (Patrocinado)</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <!-- Anuncio 1: Hosting -->
+                                        <a href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-blue-950/30 to-indigo-950/20 border border-blue-900/30 hover:border-blue-500/50 transition-all group">
+                                            <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform">
+                                                <i class="fa-solid fa-server"></i>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <h5 class="text-xs font-bold text-gray-200 truncate">Hosting Pro Especial IA</h5>
+                                                <p class="text-[11px] text-gray-400 truncate">Dominios .NET con 60% OFF</p>
+                                            </div>
+                                            <i class="fa-solid fa-chevron-right text-xs text-gray-600 group-hover:text-blue-400 pl-2"></i>
+                                        </a>
+
+                                        <!-- Anuncio 2: Contingencia -->
+                                        <a href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-purple-950/30 to-pink-950/20 border border-purple-900/30 hover:border-purple-500/50 transition-all group">
+                                            <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:scale-105 transition-transform">
+                                                <i class="fa-solid fa-shield-halved"></i>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <h5 class="text-xs font-bold text-gray-200 truncate">Packs de Contingencia</h5>
+                                                <p class="text-[11px] text-gray-400 truncate">Evitá baneos en Facebook Ads</p>
+                                            </div>
+                                            <i class="fa-solid fa-chevron-right text-xs text-gray-600 group-hover:text-purple-400 pl-2"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -472,15 +502,36 @@
         }
 
         let historialFinanzas = [];
-        function agregarMovimientoFinanciero() {
+        
+        async function agregarMovimientoFinanciero() {
             const tipo = document.getElementById('fin-tipo').value;
             const monto = parseFloat(document.getElementById('fin-monto').value);
             const concepto = document.getElementById('fin-concepto').value;
-            if (!monto || !concepto.trim()) return;
+            
+            if (!monto || !concepto.trim()) { alert("Por favor, completa todos los campos."); return; }
 
+            // 1. Agregado instantáneo visual para feedback veloz
             historialFinanzas.unshift({ tipo, monto, concepto, fecha: new Date().toLocaleTimeString() });
             actualizarCajaFinanciera();
-            document.getElementById('fin-monto').value = ''; document.getElementById('fin-concepto').value = '';
+            
+            // Limpieza de campos
+            document.getElementById('fin-monto').value = ''; 
+            document.getElementById('fin-concepto').value = '';
+
+            // 2. Envío en segundo plano al servidor Postgres (Neon)
+            try {
+                const respuesta = await fetch('/api/guardar-finanzas', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tipo, monto, concepto })
+                });
+                const data = await respuesta.json();
+                if (!respuesta.ok || !data.success) {
+                    console.error("Error al guardar en la base de datos:", data.error);
+                }
+            } catch (error) {
+                console.error("Error de red al intentar conectar con Neon:", error);
+            }
         }
 
         function actualizarCajaFinanciera() {
@@ -490,22 +541,48 @@
             const totalBalance = document.getElementById('finanzas-balance-total');
 
             let ingresos = 0; let gastos = 0; lista.innerHTML = '';
+            
+            if (historialFinanzas.length === 0) {
+                lista.innerHTML = `<p class="text-center text-xs text-gray-500 py-12" id="finanzas-vacio">No hay registros financieros cargados hoy.</p>`;
+                totalIngresos.innerText = "$0.00"; totalGastos.innerText = "$0.00"; totalBalance.innerText = "$0.00";
+                return;
+            }
+
             historialFinanzas.forEach(mov => {
                 if (mov.tipo === 'ingreso') ingresos += mov.monto; else gastos += mov.monto;
                 lista.innerHTML += `<div class="p-3.5 flex justify-between text-xs border-b border-gray-800"><div><p>${mov.concepto}</p></div><span class="${mov.tipo === 'ingreso'?'text-green-400':'text-red-400'}">$${mov.monto.toFixed(2)}</span></div>`;
             });
+            
             let balance = ingresos - gastos;
             totalIngresos.innerText = `$${ingresos.toFixed(2)}`; totalGastos.innerText = `$${gastos.toFixed(2)}`; totalBalance.innerText = `$${balance.toFixed(2)}`;
         }
 
+        // Variable global para controlar las conexiones de las cuentas reales
+        let redesConectadas = { fb: false, ig: false, tk: false };
+
         function toggleRedSocial(plataforma) {
             const btn = document.getElementById(`btn-${plataforma}`);
             const status = document.getElementById(`status-${plataforma}`);
-            if (btn.innerText === "Conectar Canal") {
-                btn.innerText = "Desconectar"; status.innerText = "Estado: Conectado (Neon)"; status.className = "text-xs text-emerald-400";
+            
+            if (!redesConectadas[plataforma]) {
+                // Conectar canal
+                redesConectadas[plataforma] = true;
+                btn.innerText = "Desconectar";
+                btn.className = "text-xs font-semibold bg-red-600/20 text-red-400 border border-red-900/30 hover:bg-red-600/30 px-4 py-2 rounded-xl transition-all";
+                status.innerText = "Estado: Conectado (Neon Hub)";
+                status.className = "text-xs text-emerald-400 font-medium";
             } else {
-                btn.innerText = "Conectar Canal"; status.innerText = "Estado: Desconectado"; status.className = "text-xs text-gray-500";
+                // Desconectar canal
+                redesConectadas[plataforma] = false;
+                if (plataforma === 'fb') btn.className = "text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl transition-all";
+                if (plataforma === 'ig') btn.className = "text-xs font-semibold bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-xl transition-all";
+                if (plataforma === 'tk') btn.className = "text-xs font-semibold bg-white hover:bg-gray-100 text-[#0b0f19] px-4 py-2 rounded-xl transition-all";
+                
+                btn.innerText = "Conectar Canal";
+                status.innerText = "Estado: Desconectado";
+                status.className = "text-xs text-gray-500";
             }
+            console.log("Cuentas vinculadas actualmente:", redesConectadas);
         }
 
         function copiarLinkAfiliado() {
