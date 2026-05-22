@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affiliate Hub AI — La plataforma todo-en-uno para afiliados</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#1a1a2e;overflow-x:hidden}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:16px 40px;max-width:1200px;margin:0 auto}
+.nav h2{font-size:20px;display:flex;align-items:center;gap:8px}
+.nav h2 span{background:linear-gradient(135deg,#667eea,#764ba2);padding:2px 8px;border-radius:6px;font-size:11px;color:#fff}
+.nav .btn-nav{padding:10px 24px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.hero{display:flex;align-items:center;max-width:1200px;margin:0 auto;padding:60px 40px;gap:60px;min-height:80vh}
+.hero-content{flex:1}
+.hero-content .tagline{display:inline-block;background:#f0f0ff;color:#667eea;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;margin-bottom:20px}
+.hero-content h1{font-size:52px;line-height:1.1;margin-bottom:20px;color:#1a1a2e}
+.hero-content h1 span{background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-content p{font-size:18px;color:#555;line-height:1.6;margin-bottom:32px;max-width:560px}
+.hero-content .cta-group{display:flex;gap:16px;align-items:center}
+.btn-primary{padding:16px 36px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .2s,box-shadow .2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(102,126,234,.35)}
+.btn-secondary{padding:16px 36px;background:#fff;color:#667eea;border:2px solid #667eea;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-secondary:hover{background:#f8f9ff}
+.hero-visual{flex:1;background:linear-gradient(135deg,#667eea15,#764ba215);border-radius:30px;padding:40px;min-height:400px;display:flex;align-items:center;justify-content:center}
+.brands{text-align:center;padding:40px;max-width:1200px;margin:0 auto}
+.brands p{font-size:13px;color:#888;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px}
+.brands div{display:flex;justify-content:center;gap:40px;font-size:14px;color:#aaa;font-weight:600;flex-wrap:wrap}
+.features,.how{max-width:1200px;margin:0 auto;padding:80px 40px}
+.features h2,.how h2,.plans-section h2,.video-sec h2,.testimonials h2,.faq-sec h2,.bonus-sec h2{font-size:36px;text-align:center;margin-bottom:12px}
+.features .sub,.plans-section .sub{text-align:center;color:#888;font-size:16px;margin-bottom:48px}
+.features-grid,.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feature-card,.test-card{background:#f8f9ff;border-radius:16px;padding:28px;transition:transform .2s}
+.feature-card:hover{transform:translateY(-4px)}
+.feature-card .icon{font-size:36px;margin-bottom:16px}
+.feature-card h3{font-size:18px;margin-bottom:8px}
+.feature-card p{font-size:14px;color:#555;line-height:1.6}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.step{text-align:center}
+.step .num{width:48px;height:48px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin:0 auto 16px}
+.step h3{font-size:18px;margin-bottom:8px}
+.step p{font-size:14px;color:#555;line-height:1.6}
+
+/* ── VIDEO SECTION ── */
+.video-sec{max-width:900px;margin:0 auto;padding:60px 20px;text-align:center}
+.video-sec .sub{color:#888;font-size:16px;margin-bottom:32px}
+.video-container{position:relative;width:100%;padding-bottom:56.25%;background:#1a1a2e;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.video-container video,.video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.video-placeholder{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#667eea,#764ba2);cursor:pointer}
+.video-placeholder .play-icon{width:80px;height:80px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:16px}
+.video-placeholder p{font-size:18px;color:#fff;font-weight:600}
+
+/* ── BONUS ── */
+.bonus-sec{background:linear-gradient(135deg,#fef3c710,#f59e0b10);padding:80px 20px}
+.bonus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:32px auto 0}
+.bonus-card{background:#fff;border:2px solid #f59e0b30;border-radius:16px;padding:28px;text-align:center;position:relative}
+.bonus-card .badge-b{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;font-size:11px;padding:4px 16px;border-radius:20px;font-weight:600}
+.bonus-card .icon-b{font-size:40px;margin-bottom:12px}
+.bonus-card h3{font-size:16px;margin-bottom:6px}
+.bonus-card p{font-size:13px;color:#888}
+.bonus-card .value{font-size:14px;font-weight:700;color:#f59e0b;margin-top:8px}
+
+/* ── PLANS ── */
+.plans-section{background:linear-gradient(135deg,#667eea08,#764ba208);padding:80px 20px}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:0 auto}
+.plan{background:#fff;border-radius:20px;padding:36px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.04);position:relative}
+.plan.popular{border:2px solid #667eea}
+.popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:12px;padding:6px 20px;border-radius:20px;font-weight:600}
+.plan h3{font-size:20px}
+.plan .price{font-size:44px;font-weight:700;color:#1a1a2e;margin:16px 0;display:flex;align-items:baseline;justify-content:center;gap:4px}
+.plan .price span{font-size:16px;color:#888;font-weight:400}
+.plan ul{list-style:none;margin:24px 0;text-align:left}
+.plan ul li{padding:10px 0;font-size:14px;color:#444;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:8px}
+.plan ul li:last-child{border:none}
+.plan ul li.no{color:#bbb}
+.btn-plan{padding:14px 32px;border:2px solid #e5e7eb;border-radius:12px;background:#fff;font-size:15px;font-weight:600;cursor:pointer;width:100%;transition:all .2s;text-decoration:none;display:inline-block}
+.plan.popular .btn-plan,.btn-plan-pro{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:transparent}
+
+/* ── TESTIMONIALS ── */
+.testimonials{max-width:1200px;margin:0 auto;padding:80px 40px}
+.test-card{padding:24px}
+.test-card .stars{color:#f59e0b;font-size:16px;margin-bottom:8px}
+.test-card blockquote{font-size:14px;color:#444;line-height:1.6;margin-bottom:16px;font-style:italic}
+.test-card .author{display:flex;align-items:center;gap:12px}
+.test-card .author .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+.test-card .author .name{font-size:13px;font-weight:600}
+.test-card .author .role{font-size:11px;color:#888}
+
+/* ── FAQ ── */
+.faq-sec{max-width:800px;margin:0 auto;padding:80px 40px}
+.faq-item{border-bottom:1px solid #e5e7eb;padding:20px 0}
+.faq-item summary{font-size:16px;font-weight:600;cursor:pointer;color:#1a1a2e;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::after{content:'+';font-size:20px;color:#667eea}
+.faq-item[open] summary::after{content:'−'}
+.faq-item p{font-size:14px;color:#555;margin-top:12px;line-height:1.6}
+
+/* ── CTA ── */
+.cta-section{background:linear-gradient(135deg,#667eea,#764ba2);padding:80px 40px;text-align:center;color:#fff}
+.cta-section h2{font-size:40px;margin-bottom:16px}
+.cta-section p{font-size:18px;margin-bottom:32px;opacity:.9}
+.cta-section .btn-white{padding:16px 48px;background:#fff;color:#667eea;border:none;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .2s}
+.cta-section .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.2)}
+.cta-section .guarantee{margin-top:16px;font-size:14px;opacity:.8}
+.footer{text-align:center;padding:32px;font-size:13px;color:#888;max-width:1200px;margin:0 auto}
+
+.urgency-bar{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;text-align:center;padding:10px;font-size:14px;font-weight:600;position:sticky;top:0;z-index:100}
+
+@media(max-width:768px){
+  .hero{flex-direction:column;padding:40px 20px;min-height:auto}
+  .hero-content h1{font-size:32px}
+  .features-grid,.steps,.plans,.test-grid,.bonus-grid{grid-template-columns:1fr}
+  .nav{padding:16px 20px}
+}
+</style>
+</head>
+<body>
+
+<div class="urgency-bar">🔥 OFERTA LANZAMIENTO — 50% OFF en Plan Pro · primeros 100 compradores</div>
+
+<nav class="nav">
+  <h2>🚀 Affiliate Hub <span>AI</span></h2>
+  <div><a href="#planes" class="btn-nav">Ver planes</a></div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="tagline">🔥 Lanzamiento — 50% OFF primeros 100</div>
+    <h1>La IA que crea tu<br>marketing de afiliados<br>en <span>5 segundos</span></h1>
+    <p>Generá páginas de ventas, copys para redes, imágenes con IA y publicá directo a Instagram, TikTok y Facebook. Todo desde un solo lugar. Sin saber diseñar ni escribir.</p>
+    <div class="cta-group">
+      <a href="https://go.hotmart.com/Q105925910O" class="btn-primary">🚀 Comprar ahora</a>
+      <a href="#video" class="btn-secondary">▶ Ver demo</a>
+    </div>
+    <div style="display:flex;gap:24px;margin-top:24px;font-size:13px;color:#888">
+      <span>✅ Sin tarjeta</span>
+      <span>✅ 7 días gratis</span>
+      <span>✅ Cancelás cuando quieras</span>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div style="text-align:center;color:#667eea">
+      <img src="producto-hub.png" alt="Affiliate Hub AI" style="max-width:100%;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.1)">
+      <p style="font-size:14px;font-weight:600;margin-top:12px">+ IA que trabaja por vos</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── VIDEO ── -->
+<section class="video-sec" id="video">
+  <h2>🎬 Mirá lo fácil que es</h2>
+  <p class="sub">En menos de 1 minuto generás una campaña completa y la publicás en tus redes.</p>
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/v7KbockagSI?autoplay=1&mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+</section>
+
+<section class="brands">
+  <p>Usado por afiliados de</p>
+  <div>Hotmart · Kiwify · Eduzz · Monetizze · Braip · Udemy</div>
+</section>
+
+<section class="features">
+  <h2>Todo lo que necesitás en un solo lugar</h2>
+  <p class="sub">Dejá de usar 10 herramientas. Centralizá todo tu marketing de afiliados.</p>
+  <div class="features-grid">
+    <div class="feature-card"><div class="icon">🤖</div><h3>Generador AI</h3><p>Pegá el link de tu producto y la IA genera página de ventas, copy, imágenes y visuales al instante.</p></div>
+    <div class="feature-card"><div class="icon">📱</div><h3>Publicación 1 clic</h3><p>Conectá Instagram, TikTok y Facebook. Publicá directo sin salir de la plataforma.</p></div>
+    <div class="feature-card"><div class="icon">🖼️</div><h3>Imágenes con IA</h3><p>La IA genera imágenes para tus posts basadas en tu producto. O subí las tuyas.</p></div>
+    <div class="feature-card"><div class="icon">🔗</div><h3>Enlaces con tracking</h3><p>Acortá hotlinks, asigná fuente (TikTok, IG, YouTube) y rastreá cada clic.</p></div>
+    <div class="feature-card"><div class="icon">📄</div><h3>Clonador de páginas</h3><p>Cloná páginas de ventas en tu dominio para instalar píxeles de Meta, Google y TikTok.</p></div>
+    <div class="feature-card"><div class="icon">👁️</div><h3>Vista previa redes</h3><p>Mirá cómo queda tu contenido en Instagram, TikTok y Facebook ANTES de publicar.</p></div>
+  </div>
+</section>
+
+<!-- ── BONUS ── -->
+<section class="bonus-sec">
+  <h2>🎁 Bonos exclusivos por lanzamiento</h2>
+  <p class="sub" style="text-align:center;color:#888;font-size:16px;margin-top:8px">Llevate estos bonos GRATIS al comprar cualquier plan pago</p>
+  <div class="bonus-grid">
+    <div class="bonus-card">
+      <div class="badge-b">BONO 1</div>
+      <div class="icon-b">📚</div>
+      <h3>Guía de Marketing Viral</h3>
+      <p>Estrategias probadas para viralizar tus publicaciones de afiliado en TikTok e Instagram.</p>
+      <div class="value">Valor: $27</div>
+    </div>
+    <div class="bonus-card">
+      <div class="badge-b">BONO 2</div>
+      <div class="icon-b">🎯</div>
+      <h3>Plantillas de Copys</h3>
+      <p>50 plantillas de copywriting para diferentes nichos. Solo completás y publicás.</p>
+      <div class="value">Valor: $37</div>
+    </div>
+    <div class="bonus-card">
+      <div class="badge-b">BONO 3</div>
+      <div class="icon-b">👥</div>
+      <h3>Comunidad Privada</h3>
+      <p>Grupo exclusivo de afiliados donde compartimos estrategias y nos ayudamos.</p>
+      <div class="value">Valor: $47/mes</div>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:24px;font-size:14px;color:#f59e0b;font-weight:600">🎁 Bonos por tiempo limitado · Valor total: <s>$111</s> GRATIS</p>
+</section>
+
+<section class="how">
+  <h2>Cómo funciona</h2>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><h3>Conectá tu producto</h3><p>Pegá el link de Hotmart, tu público objetivo y elegí una imagen o generala con IA.</p></div>
+    <div class="step"><div class="num">2</div><h3>La IA genera todo</h3><p>En 5 segundos tenés página de ventas, copys, imágenes y visuales para tus redes.</p></div>
+    <div class="step"><div class="num">3</div><h3>Vista previa y publicá</h3><p>Mirá cómo queda en cada red social y publicá con 1 clic. Así de simple.</p></div>
+  </div>
+</section>
+
+<section class="plans-section" id="planes">
+  <h2>Elegí tu plan</h2>
+  <p class="sub">Empezá gratis. Actualizá cuando necesites más funciones.</p>
+  <div class="plans">
+    <div class="plan">
+      <h3>Starter</h3>
+      <div class="price">$0 <span>/ mes</span></div>
+      <ul>
+        <li>✅ 3 campañas AI / mes</li>
+        <li>✅ 1 red social conectada</li>
+        <li>✅ 5 enlaces acortados</li>
+        <li>✅ Imágenes IA básicas</li>
+        <li>❌ Vista previa redes</li>
+        <li>❌ Publicación automática</li>
+        <li class="no">❌ Bonos exclusivos</li>
+      </ul>
+      <a href="https://go.hotmart.com/Q105925910O" class="btn-plan">Comenzar gratis</a>
+    </div>
+    <div class="plan popular">
+      <div class="popular-badge">RECOMENDADO</div>
+      <h3>Pro</h3>
+      <div class="price"><span style="font-size:18px;color:#ef4444;font-weight:700;text-decoration:line-through">$97</span> $47 <span>/ mes</span></div>
+      <p style="color:#ef4444;font-size:13px;font-weight:600">🔥 50% OFF lanzamiento</p>
+      <ul>
+        <li>✅ Campañas AI ilimitadas</li>
+        <li>✅ 3 redes sociales conectadas</li>
+        <li>✅ Enlaces ilimitados + tracking</li>
+        <li>✅ Imágenes IA avanzadas</li>
+        <li>✅ Vista previa en redes</li>
+        <li>✅ Publicación automática</li>
+        <li>✅ Clonador + páginas de bono</li>
+        <li>✅ Bonos exclusivos (valor $111)</li>
+      </ul>
+      <a href="https://go.hotmart.com/Q105925910O" class="btn-plan btn-plan-pro">Elegir Pro — $47/mes</a>
+    </div>
+    <div class="plan">
+      <h3>Elite</h3>
+      <div class="price">$97 <span>/ mes</span></div>
+      <ul>
+        <li>✅ Todo lo de Pro</li>
+        <li>✅ Todas las redes ilimitadas</li>
+        <li>✅ Clonación ilimitada</li>
+        <li>✅ Programación de posts</li>
+        <li>✅ Estadísticas avanzadas</li>
+        <li>✅ Soporte prioritario 24/7</li>
+        <li>✅ Comunidad privada</li>
+      </ul>
+      <a href="https://go.hotmart.com/Q105925910O" class="btn-plan">Elegir Elite — $97/mes</a>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <h2>Lo que dicen quienes ya lo usan</h2>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Antes tardaba 2 horas en preparar una publi para Instagram. Con Affiliate Hub lo hago en 5 minutos. La IA es impresionante."</blockquote>
+      <div class="author"><div class="avatar">CM</div><div><div class="name">Carlos M.</div><div class="role">Afiliado Hotmart · 8 meses</div></div></div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"La vista previa en redes me salvó. Antes publicaba y quedaba horrible. Ahora veo cómo queda antes. Game changer."</blockquote>
+      <div class="author"><div class="avatar">LG</div><div><div class="name">Laura G.</div><div class="role">Afiliada · 2 años</div></div></div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Las imágenes que genera la IA basadas en mi producto son increíbles. Parecen hechas por un diseñador."</blockquote>
+      <div class="author"><div class="avatar">PR</div><div><div class="name">Pedro R.</div><div class="role">Afiliado full-time</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq-sec">
+  <h2>❓ Preguntas frecuentes</h2>
+  <div class="faq-item">
+    <summary>¿Necesito saber diseñar o escribir?</summary>
+    <p>No. La IA hace todo por vos. Solo ponés el link de tu producto y la plataforma genera página de ventas, copys, imágenes y visuales automáticamente.</p>
+  </div>
+  <div class="faq-item">
+    <summary>¿Puedo probar antes de pagar?</summary>
+    <p>Sí. El plan Starter es gratis para siempre con 3 campañas por mes. Sin tarjeta de crédito.</p>
+  </div>
+  <div class="faq-item">
+    <summary>¿Cómo conecto mis redes sociales?</summary>
+    <p>Desde "Mis Redes" conectás Instagram, TikTok, Facebook y YouTube con 1 clic. Usamos las APIs oficiales de cada plataforma.</p>
+  </div>
+  <div class="faq-item">
+    <summary>¿Las imágenes las genera la IA?</summary>
+    <p>Sí. La IA genera imágenes únicas basadas en el nombre de tu producto. También podés subir las tuyas.</p>
+  </div>
+  <div class="faq-item">
+    <summary>¿Puedo cancelar cuando quiera?</summary>
+    <p>Sí. Sin multas ni contratos. Cancelás desde tu panel y seguís usando el plan gratis.</p>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Empezá hoy, gratis</h2>
+  <p>Probá la plataforma sin pagar. Sin tarjeta. Sin riesgos. 7 días de prueba en Pro.</p>
+  <a href="https://go.hotmart.com/Q105925910O" class="btn-white">🚀 Comenzar gratis ahora</a>
+  <p class="guarantee">🔒 7 días gratis · Cancelá cuando quieras · Sin compromiso</p>
+</section>
+
+<footer class="footer">
+  <p>© 2026 Affiliate Hub AI. Todos los derechos reservados.</p>
+  <p style="margin-top:4px;">Hecho para afiliados de Hotmart · Contacto: soporte@affiliatehub.ai</p>
+</footer>
+
+<script>
+// Reemplazar links de Hotmart cuando crees el producto
+// document.querySelectorAll('a[href*="hotmart.com/producto"]').forEach(a => {
+//   a.href = 'https://hotmart.com/tu-producto-real';
+// });
+</script>
+
+</body>
+</html>

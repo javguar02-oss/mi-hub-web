@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenido — Affiliate Hub AI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#667eea20,#764ba220);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{max-width:1100px;width:100%;display:flex;flex-direction:column;gap:24px}
+.card{background:#fff;border-radius:24px;padding:48px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.08)}
+.logo{width:80px;height:80px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:36px;color:#fff;font-weight:700}
+h1{font-size:28px;color:#1a1a2e;margin-bottom:8px}
+.sub{color:#888;font-size:16px;margin-bottom:32px;line-height:1.5}
+.card-done{background:#f0fdf4;border:2px solid #22c55e;border-radius:16px;padding:20px;margin-bottom:24px}
+.card-done .big{font-size:40px;margin-bottom:8px}
+.card-done p{font-size:14px;color:#166534}
+.info{background:#f8f9ff;border-radius:12px;padding:20px;margin-bottom:24px;text-align:left}
+.info p{font-size:14px;color:#444;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.info a{color:#667eea;font-weight:600;text-decoration:none}
+.info a:hover{text-decoration:underline}
+.btn-video{display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;margin-top:8px}
+.footer-text{font-size:12px;color:#aaa;margin-top:24px;text-align:center}
+
+/* Estilos nuevos para el módulo de Inteligencia Artificial */
+.ia-box{background:#fff;border-radius:24px;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.08);text-align:left}
+.ia-grid{display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:768px){.ia-grid{grid-template-columns:1fr 1fr}}
+.ia-title{font-size:22px;color:#1a1a2e;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.ia-label{display:block;font-size:14px;font-weight:600;color:#444;margin-bottom:8px}
+.ia-textarea{width:100%;padding:14px;border:1px solid #ddd;border-radius:12px;font-size:14px;color:#333;resize:none;font-family:inherit}
+.ia-textarea:focus{outline:none;border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,0.1)}
+.ia-btn{width:100%;padding:14px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;transition:opacity 0.2s;margin-top:12px}
+.ia-btn:disabled{opacity:0.6;cursor:not-allowed}
+.ia-output-container{position:relative}
+.ia-output{background:#f8f9ff;border:1px solid #e2e8f0;font-family:inherit}
+.btn-copy{position:absolute;bottom:12px;right:12px;padding:6px 12px;background:#fff;border:1px solid #ddd;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600;color:#555}
+.btn-copy:hover{background:#f5f5f5}
+.creditos-text{font-size:11px;color:#999;text-align:center;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Sección de Bienvenida Original -->
+    <div class="card">
+        <div class="logo">AI</div>
+        <h1>🎉 ¡Bienvenido a Affiliate Hub AI!</h1>
+        <p class="sub">Gracias por tu compra. Estamos ultimando los detalles para darte acceso a la plataforma.</p>
+
+        <div class="card-done">
+            <div class="big">✅</div>
+            <p><strong>Tu pago fue confirmado exitosamente.</strong><br>Recibirás un email con tus credenciales de acceso cuando la plataforma esté lista.</p>
+        </div>
+
+        <div class="info">
+            <p>📺 <strong>Mirá el video demo:</strong><br><a href="https://youtu.be/v7KbockagSI" target="_blank">youtu.be/v7KbockagSI</a></p>
+            <p>🌐 <strong>Landing page:</strong><br><a href="https://afiliadohub.net" target="_blank">afiliadohub.net</a></p>
+            <p>📩 <strong>Soporte:</strong><br>soporte@affiliatehub.ai</p>
+        </div>
+
+        <a href="https://youtu.be/v7KbockagSI" class="btn-video" target="_blank">▶ Ver video demo</a>
+    </div>
+
+    <!-- SECCIÓN NUEVA: Módulo de Prueba de la IA -->
+    <div class="ia-box">
+        <h2 class="ia-title">🤖 Prueba nuestro Creador de Contenido</h2>
+        <p class="sub" style="margin-bottom:20px">Escribí una idea simple abajo y mira cómo la Inteligencia Artificial arma un copy viral adaptado para tus redes sociales.</p>
+        
+        <div class="ia-grid">
+            <!-- Izquierda: Entrada -->
+            <div>
+                <label class="ia-label" for="detalles_producto">¿Qué querés promocionar hoy?</label>
+                <textarea id="detalles_producto" class="ia-textarea" rows="6" placeholder="Ej: Zapatillas deportivas con 20% de descuento solo por hoy, o un curso de marketing de afiliados con acceso de por vida..."></textarea>
+                <button id="btn_generar" onclick="generarTextoConIA()" class="ia-btn">✨ Generar Copy Comercial</button>
+                <p class="creditos-text">Prueba de usuario. Consume 1 crédito de tu cuenta.</p>
+            </div>
+            
+            <!-- Derecha: Salida -->
+            <div>
+                <label class="ia-label">Tu publicación lista:</label>
+                <div class="ia-output-container">
+                    <textarea id="resultado_ia" class="ia-textarea ia-output" rows="9" readonly placeholder="El texto optimizado por la IA aparecerá acá..."></textarea>
+                    <button id="btn_copiar" onclick="copiarTexto()" class="btn-copy" style="display:none">📋 Copiar Texto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="footer-text">Affiliate Hub AI — La plataforma todo-en-uno para afiliados</p>
+</div>
+
+<script>
+async function generarTextoConIA() {
+    const detalles = document.getElementById('detalles_producto').value;
+    const btnGenerar = document.getElementById('btn_generar');
+    const resultadoTextarea = document.getElementById('resultado_ia');
+    const btnCopiar = document.getElementById('btn_copiar');
+
+    if (!detalles.trim()) {
+        alert("Por favor, escribe un detalle o idea para tu producto.");
+        return;
+    }
+
+    // Cambiar estado a cargando
+    btnGenerar.disabled = true;
+    btnGenerar.innerText = "🤖 Redactando copy ganador...";
+    resultadoTextarea.placeholder = "La IA está procesando tu texto comercial...";
+    btnCopiar.style.display = 'none';
+
+    try {
+        // Apuntamos a la función serverless de la carpeta api que creamos recién
+        const respuesta = await fetch('/api/generar-copy', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                id_usuario: 1, // Usuario simulado para la prueba de bienvenida
+                detalles_producto: detalles 
+            })
+        });
+
+        const datos = await respuesta.json();
+
+        if (respuesta.status !== 200) {
+            alert(datos.error || "Ocurrió un error.");
+            resultadoTextarea.placeholder = "No se pudo generar el texto.";
+        } else {
+            resultadoTextarea.value = datos.copy;
+            btnCopiar.style.display = 'block'; // Mostrar botón copiar
+        }
+    } catch (error) {
+        console.error(error);
+        alert("Error al conectar con el servidor de la IA.");
+        resultadoTextarea.placeholder = "Error de conexión.";
+    } finally {
+        btnGenerar.disabled = false;
+        btnGenerar.innerText = "✨ Generar Copy Comercial";
+    }
+}
+
+function copiarTexto() {
+    const texto = document.getElementById('resultado_ia');
+    texto.select();
+    document.execCommand('copy');
+    alert("¡Texto copiado al portapapeles!");
+}
+</script>
+
+</body>
+</html>
