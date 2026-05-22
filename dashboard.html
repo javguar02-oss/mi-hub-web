@@ -163,7 +163,7 @@
                                         <i class="fa-solid fa-square-poll-horizontal text-indigo-400"></i>
                                         <h3 class="font-bold text-gray-200">Contenido Comercial Generado</h3>
                                     </div>
-                                    <button onclick="copiarContenidoIA()" class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 transition-colors flex items-center gap-1.5">
+                                    <button onclick="copyContenidoIA()" class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 transition-colors flex items-center gap-1.5">
                                         <i class="fa-regular fa-copy"></i> Copiar Texto
                                     </button>
                                 </div>
@@ -485,6 +485,8 @@
                     outputBox.innerText = data.texto;
                     creditosText.innerText = creditosActuales - 1;
                     imageBox.innerHTML = `<p class="text-[11px] text-gray-300 italic">"High quality photo workspace neon light accents --ar 16:9"</p>`;
+                    
+                    // Actualiza el ángulo según rubro de respuesta
                     anguloBox.innerText = `Enfoque adaptado para ${rubro.toUpperCase()}.`;
                 } else {
                     outputBox.innerText = `Error: ${data.error || 'No generado'}`;
@@ -496,7 +498,7 @@
             }
         }
 
-        function copiarContenidoIA() {
+        function copyContenidoIA() {
             const texto = document.getElementById('ia-output').innerText;
             navigator.clipboard.writeText(texto); alert("¡Copiado!");
         }
@@ -510,7 +512,7 @@
             
             if (!monto || !concepto.trim()) { alert("Por favor, completa todos los campos."); return; }
 
-            // 1. Agregado instantáneo visual para feedback veloz
+            // 1. Agregado instantáneo visual para feedback inmediato
             historialFinanzas.unshift({ tipo, monto, concepto, fecha: new Date().toLocaleTimeString() });
             actualizarCajaFinanciera();
             
@@ -565,14 +567,12 @@
             const status = document.getElementById(`status-${plataforma}`);
             
             if (!redesConectadas[plataforma]) {
-                // Conectar canal
                 redesConectadas[plataforma] = true;
                 btn.innerText = "Desconectar";
                 btn.className = "text-xs font-semibold bg-red-600/20 text-red-400 border border-red-900/30 hover:bg-red-600/30 px-4 py-2 rounded-xl transition-all";
                 status.innerText = "Estado: Conectado (Neon Hub)";
                 status.className = "text-xs text-emerald-400 font-medium";
             } else {
-                // Desconectar canal
                 redesConectadas[plataforma] = false;
                 if (plataforma === 'fb') btn.className = "text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl transition-all";
                 if (plataforma === 'ig') btn.className = "text-xs font-semibold bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-xl transition-all";
@@ -588,6 +588,22 @@
         function copiarLinkAfiliado() {
             const link = document.getElementById('afiliado-link'); link.select(); document.execCommand('copy'); alert("¡Copiado!");
         }
+
+        // Evento interactivo para el cambio dinámico de las plantillas en pantalla
+        document.getElementById('ia-plantilla').addEventListener('change', function() {
+            const plantillaActiva = this.value;
+            const anguloBox = document.getElementById('ia-angulo-box');
+            
+            if (plantillaActiva === 'tiktok_script') {
+                anguloBox.innerText = "Fórmula AIDA activa: Gancho en los primeros 3 segundos + Retención con beneficios + Llamado a la acción directo.";
+            } else if (plantillaActiva === 'instagram_feed') {
+                anguloBox.innerText = "Formato Reel/Feed activo: Enfoque estético, micro-gancho en texto y uso estratégico de hashtags relevantes.";
+            } else if (plantillaActiva === 'facebook_ads') {
+                anguloBox.innerText = "Copy de Conversión activo: Enfoque directo al dolor del cliente, gatillos de escasez y urgencia para venta en frío.";
+            } else {
+                anguloBox.innerText = "Formato Profesional activo: Redacción formal enfocada en métricas, autoridad y valor de mercado.";
+            }
+        });
     </script>
 </body>
 </html>
