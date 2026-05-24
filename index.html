@@ -1,332 +1,609 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Affiliate Hub AI — La plataforma todo-en-uno para afiliados</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#1a1a2e;overflow-x:hidden}
-.nav{display:flex;justify-content:space-between;align-items:center;padding:16px 40px;max-width:1200px;margin:0 auto}
-.nav h2{font-size:20px;display:flex;align-items:center;gap:8px}
-.nav h2 span{background:linear-gradient(135deg,#667eea,#764ba2);padding:2px 8px;border-radius:6px;font-size:11px;color:#fff}
-.nav .btn-nav{padding:10px 24px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
-.hero{display:flex;align-items:center;max-width:1200px;margin:0 auto;padding:60px 40px;gap:60px;min-height:80vh}
-.hero-content{flex:1}
-.hero-content .tagline{display:inline-block;background:#f0f0ff;color:#667eea;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;margin-bottom:20px}
-.hero-content h1{font-size:52px;line-height:1.1;margin-bottom:20px;color:#1a1a2e}
-.hero-content h1 span{background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-content p{font-size:18px;color:#555;line-height:1.6;margin-bottom:32px;max-width:560px}
-.hero-content .cta-group{display:flex;gap:16px;align-items:center}
-.btn-primary{padding:16px 36px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .2s,box-shadow .2s}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(102,126,234,.35)}
-.btn-secondary{padding:16px 36px;background:#fff;color:#667eea;border:2px solid #667eea;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
-.btn-secondary:hover{background:#f8f9ff}
-.hero-visual{flex:1;background:linear-gradient(135deg,#667eea15,#764ba215);border-radius:30px;padding:40px;min-height:400px;display:flex;align-items:center;justify-content:center}
-.brands{text-align:center;padding:40px;max-width:1200px;margin:0 auto}
-.brands p{font-size:13px;color:#888;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px}
-.brands div{display:flex;justify-content:center;gap:40px;font-size:14px;color:#aaa;font-weight:600;flex-wrap:wrap}
-.features,.how{max-width:1200px;margin:0 auto;padding:80px 40px}
-.features h2,.how h2,.plans-section h2,.video-sec h2,.testimonials h2,.faq-sec h2,.bonus-sec h2{font-size:36px;text-align:center;margin-bottom:12px}
-.features .sub,.plans-section .sub{text-align:center;color:#888;font-size:16px;margin-bottom:48px}
-.features-grid,.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.feature-card,.test-card{background:#f8f9ff;border-radius:16px;padding:28px;transition:transform .2s}
-.feature-card:hover{transform:translateY(-4px)}
-.feature-card .icon{font-size:36px;margin-bottom:16px}
-.feature-card h3{font-size:18px;margin-bottom:8px}
-.feature-card p{font-size:14px;color:#555;line-height:1.6}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-.step{text-align:center}
-.step .num{width:48px;height:48px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin:0 auto 16px}
-.step h3{font-size:18px;margin-bottom:8px}
-.step p{font-size:14px;color:#555;line-height:1.6}
-
-/* ── VIDEO SECTION ── */
-.video-sec{max-width:900px;margin:0 auto;padding:60px 20px;text-align:center}
-.video-sec .sub{color:#888;font-size:16px;margin-bottom:32px}
-.video-container{position:relative;width:100%;padding-bottom:56.25%;background:#1a1a2e;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15)}
-.video-container video,.video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
-.video-placeholder{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#667eea,#764ba2);cursor:pointer}
-.video-placeholder .play-icon{width:80px;height:80px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:16px}
-.video-placeholder p{font-size:18px;color:#fff;font-weight:600}
-
-/* ── BONUS ── */
-.bonus-sec{background:linear-gradient(135deg,#fef3c710,#f59e0b10);padding:80px 20px}
-.bonus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:32px auto 0}
-.bonus-card{background:#fff;border:2px solid #f59e0b30;border-radius:16px;padding:28px;text-align:center;position:relative}
-.bonus-card .badge-b{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;font-size:11px;padding:4px 16px;border-radius:20px;font-weight:600}
-.bonus-card .icon-b{font-size:40px;margin-bottom:12px}
-.bonus-card h3{font-size:16px;margin-bottom:6px}
-.bonus-card p{font-size:13px;color:#888}
-.bonus-card .value{font-size:14px;font-weight:700;color:#f59e0b;margin-top:8px}
-
-/* ── PLANS ── */
-.plans-section{background:linear-gradient(135deg,#667eea08,#764ba208);padding:80px 20px}
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:0 auto}
-.plan{background:#fff;border-radius:20px;padding:36px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.04);position:relative}
-.plan.popular{border:2px solid #667eea}
-.popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:12px;padding:6px 20px;border-radius:20px;font-weight:600}
-.plan h3{font-size:20px}
-.plan .price{font-size:44px;font-weight:700;color:#1a1a2e;margin:16px 0;display:flex;align-items:baseline;justify-content:center;gap:4px}
-.plan .price span{font-size:16px;color:#888;font-weight:400}
-.plan ul{list-style:none;margin:24px 0;text-align:left}
-.plan ul li{padding:10px 0;font-size:14px;color:#444;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:8px}
-.plan ul li:last-child{border:none}
-.plan ul li.no{color:#bbb}
-.btn-plan{padding:14px 32px;border:2px solid #e5e7eb;border-radius:12px;background:#fff;font-size:15px;font-weight:600;cursor:pointer;width:100%;transition:all .2s;text-decoration:none;display:inline-block}
-.plan.popular .btn-plan,.btn-plan-pro{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:transparent}
-
-/* ── TESTIMONIALS ── */
-.testimonials{max-width:1200px;margin:0 auto;padding:80px 40px}
-.test-card{padding:24px}
-.test-card .stars{color:#f59e0b;font-size:16px;margin-bottom:8px}
-.test-card blockquote{font-size:14px;color:#444;line-height:1.6;margin-bottom:16px;font-style:italic}
-.test-card .author{display:flex;align-items:center;gap:12px}
-.test-card .author .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
-.test-card .author .name{font-size:13px;font-weight:600}
-.test-card .author .role{font-size:11px;color:#888}
-
-/* ── FAQ ── */
-.faq-sec{max-width:800px;margin:0 auto;padding:80px 40px}
-.faq-item{border-bottom:1px solid #e5e7eb;padding:20px 0}
-.faq-item summary{font-size:16px;font-weight:600;cursor:pointer;color:#1a1a2e;display:flex;justify-content:space-between;align-items:center}
-.faq-item summary::after{content:'+';font-size:20px;color:#667eea}
-.faq-item[open] summary::after{content:'−'}
-.faq-item p{font-size:14px;color:#555;margin-top:12px;line-height:1.6}
-
-/* ── CTA ── */
-.cta-section{background:linear-gradient(135deg,#667eea,#764ba2);padding:80px 40px;text-align:center;color:#fff}
-.cta-section h2{font-size:40px;margin-bottom:16px}
-.cta-section p{font-size:18px;margin-bottom:32px;opacity:.9}
-.cta-section .btn-white{padding:16px 48px;background:#fff;color:#667eea;border:none;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .2s}
-.cta-section .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.2)}
-.cta-section .guarantee{margin-top:16px;font-size:14px;opacity:.8}
-.footer{text-align:center;padding:32px;font-size:13px;color:#888;max-width:1200px;margin:0 auto}
-
-.urgency-bar{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;text-align:center;padding:10px;font-size:14px;font-weight:600;position:sticky;top:0;z-index:100}
-
-@media(max-width:768px){
-  .hero{flex-direction:column;padding:40px 20px;min-height:auto}
-  .hero-content h1{font-size:32px}
-  .features-grid,.steps,.plans,.test-grid,.bonus-grid{grid-template-columns:1fr}
-  .nav{padding:16px 20px}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiHub Web - Panel de Control Premium</title>
+    <!-- Tailwind CSS para diseño moderno -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome para iconos profesionales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
+    </style>
 </head>
 <body>
 
-<div class="urgency-bar">🔥 OFERTA LANZAMIENTO — 50% OFF en Plan Pro · primeros 100 compradores</div>
+    <div class="flex h-screen overflow-hidden">
+        
+        <!-- SIDEBAR: MENÚ LATERAL IZQUIERDO -->
+        <aside class="w-64 bg-[#111827] border-r border-gray-800 flex flex-col justify-between">
+            <div class="p-6">
+                <!-- Logo del SaaS -->
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-9 h-9 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                        <i class="fa-solid fa-cube text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">MiHub Web</h1>
+                        <span class="text-xs text-blue-400 font-medium">Panel Pro v2.0</span>
+                    </div>
+                </div>
 
-<nav class="nav">
-  <h2>🚀 Affiliate Hub <span>AI</span></h2>
-  <div><a href="#planes" class="btn-nav">Ver planes</a></div>
-</nav>
+                <!-- Opciones de Navegación -->
+                <nav class="space-y-1.5">
+                    <button onclick="switchTab('ia')" id="btn-tab-ia" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-600/10">
+                        <i class="fa-solid fa-wand-magic-sparkles text-base"></i> Generador IA
+                    </button>
+                    <button onclick="switchTab('finanzas')" id="btn-tab-finanzas" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-400 hover:bg-gray-800/50 hover:text-gray-200">
+                        <i class="fa-solid fa-wallet text-base"></i> Ingresos y Gastos
+                    </button>
+                    <button onclick="switchTab('redes')" id="btn-tab-redes" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-400 hover:bg-gray-800/50 hover:text-gray-200">
+                        <i class="fa-solid fa-share-nodes text-base"></i> Conectar Redes
+                    </button>
+                    <button onclick="switchTab('afiliados')" id="btn-tab-afiliados" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-400 hover:bg-gray-800/50 hover:text-gray-200">
+                        <i class="fa-solid fa-users text-base"></i> Sistema de Afiliados
+                    </button>
+                    <button onclick="switchTab('admin')" id="btn-tab-admin" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-500 hover:bg-red-950/20 hover:text-red-400 border border-transparent hover:border-red-900/30">
+                        <i class="fa-solid fa-user-shield text-base"></i> Admin Secreto
+                    </button>
+                </nav>
+            </div>
 
-<section class="hero">
-  <div class="hero-content">
-    <div class="tagline">🔥 Lanzamiento — 50% OFF primeros 100</div>
-    <h1>La IA que crea tu<br>marketing de afiliados<br>en <span>5 segundos</span></h1>
-    <p>Generá páginas de ventas, copys para redes, imágenes con IA y publicá directo a Instagram, TikTok y Facebook. Todo desde un solo lugar. Sin saber diseñar ni escribir.</p>
-    <div class="cta-group">
-      <a href="https://go.hotmart.com/Q105925910O" class="btn-primary">🚀 Comprar ahora</a>
-      <a href="#video" class="btn-secondary">▶ Ver demo</a>
+            <!-- Perfil de Usuario abajo del menú -->
+            <div class="p-4 border-t border-gray-800 bg-[#0d131f]">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold text-white shadow-inner">
+                        U
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-200 truncate">Usuario Demo</p>
+                        <p class="text-xs text-gray-400 truncate">Plan Premium Activo</p>
+                    </div>
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="flex-1 flex flex-col overflow-y-auto bg-[#0f1626]">
+            
+            <!-- HEADER DE NOTIFICACIONES Y CRÉDITOS -->
+            <header class="h-16 border-b border-gray-800 px-8 flex items-center justify-between bg-[#111827]/50 backdrop-blur-md sticky top-0 z-50">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Modo Producción</span>
+                </div>
+                <div class="flex items-center gap-6">
+                    <!-- Contador de Créditos IA -->
+                    <div class="flex items-center gap-2 bg-gray-800/80 px-3 py-1.5 rounded-lg border border-gray-700">
+                        <i class="fa-solid fa-bolt text-yellow-400 text-xs"></i>
+                        <span class="text-xs font-medium text-gray-300">Créditos IA: <strong class="text-white" id="creditos-count">150</strong>/150</span>
+                    </div>
+                    <button class="text-gray-400 hover:text-white relative transition-colors">
+                        <i class="fa-regular fa-bell text-lg"></i>
+                        <span class="absolute top-0 right-0 w-2 h-2 bg-blue-500 rounded-full"></span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- CONTENEDOR DINÁMICO DE PESTAÑAS -->
+            <div class="p-8 flex-1">
+
+                <!-- PESTAÑA 1: GENERADOR IA (ACTIVA POR DEFECTO) -->
+                <div id="tab-ia" class="tab-content space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        
+                        <!-- COLUMNA IZQUIERDA: CONFIGURACIÓN DE LA IA -->
+                        <div class="lg:col-span-1 bg-[#111827] rounded-2xl p-6 border border-gray-800 space-y-5">
+                            <div class="flex items-center gap-2.5 pb-4 border-b border-gray-800">
+                                <i class="fa-solid fa-sliders text-blue-400"></i>
+                                <h3 class="font-bold text-gray-200">Configurar Campaña</h3>
+                            </div>
+
+                            <!-- Selector de Rubro / Tipo de Cuenta -->
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Tu Rubro o Modelo</label>
+                                <select id="ia-rubro" onchange="adaptarFormularioIA()" class="w-full bg-[#1f2937] border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 focus:outline-none focus:border-blue-500 transition-colors">
+                                    <option value="hotmart">🤖 Afiliados Hotmart</option>
+                                    <option value="negocio">🏢 Comercio / Mi Negocio</option>
+                                    <option value="profesional">💼 Profesional / Servicios</option>
+                                    <option value="marca">✨ Marca Personal</option>
+                                </select>
+                            </div>
+
+                            <!-- Selector de Red Social / Plantilla -->
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Red Social Destino</label>
+                                <select id="ia-plantilla" class="w-full bg-[#1f2937] border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 focus:outline-none focus:border-blue-500 transition-colors">
+                                    <option value="instagram_feed">📸 Instagram - Copys con Ganchos</option>
+                                    <option value="tiktok_script">📱 TikTok - Guion con Estructura AIDA</option>
+                                    <option value="facebook_ads">🎯 Facebook Ads - Texto de Conversión</option>
+                                    <option value="linkedin_post">👔 LinkedIn - Liderazgo de Opinión</option>
+                                </select>
+                            </div>
+
+                            <!-- Campo Dinámico: Enlace de Hotmart -->
+                            <div id="wrapper-link-hotmart">
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Link de tu Producto (Hotmart)</label>
+                                <div class="relative">
+                                    <i class="fa-solid fa-link absolute left-4 top-3.5 text-gray-500 text-sm"></i>
+                                    <input type="url" id="ia-link" placeholder="https://go.hotmart.com/..." class="w-full bg-[#1f2937] border border-gray-700 rounded-xl pl-11 pr-4 py-3 text-sm text-gray-200 focus:outline-none focus:border-blue-500 transition-colors">
+                                </div>
+                            </div>
+
+                            <!-- Descripción de la Idea -->
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">¿De qué trata tu producto/campaña?</label>
+                                <textarea id="ia-idea" rows="4" placeholder="Ej: Curso online de resina epoxi con 50% de descuento solo por hoy..." class="w-full bg-[#1f2937] border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 focus:outline-none focus:border-blue-500 transition-colors resize-none"></textarea>
+                            </div>
+
+                            <!-- Público Objetivo -->
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Público Objetivo (Opcional)</label>
+                                <input type="text" id="ia-publico" placeholder="Ej: Emprendedores, dueños de casa, reposteras..." class="w-full bg-[#1f2937] border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 focus:outline-none focus:border-blue-500 transition-colors">
+                            </div>
+
+                            <!-- Botón de Acción Principal -->
+                            <button onclick="ejecutarGeneracionIA()" id="btn-generar-ia" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold py-3.5 px-4 rounded-xl text-sm shadow-lg shadow-blue-600/20 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> <span id="text-btn-ia">Generar Campaña con IA</span>
+                            </button>
+                        </div>
+
+                        <!-- COLUMNA DERECHA: RESULTADO Y CREATIVO + ADS -->
+                        <div class="lg:col-span-2 space-y-6">
+                            
+                            <!-- Caja de Resultados -->
+                            <div class="bg-[#111827] rounded-2xl p-6 border border-gray-800 flex flex-col h-[400px]">
+                                <div class="flex items-center justify-between pb-4 border-b border-gray-800 mb-4">
+                                    <div class="flex items-center gap-2.5">
+                                        <i class="fa-solid fa-square-poll-horizontal text-indigo-400"></i>
+                                        <h3 class="font-bold text-gray-200">Contenido Comercial Generado</h3>
+                                    </div>
+                                    <button onclick="copyContenidoIA()" class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 transition-colors flex items-center gap-1.5">
+                                        <i class="fa-regular fa-copy"></i> Copiar Texto
+                                    </button>
+                                </div>
+                                <div class="flex-1 overflow-y-auto bg-[#0d131f] border border-gray-800 rounded-xl p-5 text-gray-300 text-sm leading-relaxed whitespace-pre-wrap" id="ia-output">Tu copia publicitaria optimizada para vender aparecerá en este recuadro apenas configures los datos de la izquierda y le des al botón...</div>
+                            </div>
+
+                            <!-- VISUALIZADOR DE IMAGEN Y MONETIZACIÓN AUTOMÁTICA -->
+                            <div class="bg-[#111827] rounded-2xl p-6 border border-gray-800 space-y-6">
+                                <div class="flex items-center gap-2.5 pb-4 border-b border-gray-800">
+                                    <i class="fa-solid fa-image text-purple-400"></i>
+                                    <h3 class="font-bold text-gray-200">Sugerencia de Creativo (Multimedia)</h3>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center mb-6">
+                                    <div class="bg-[#0d131f] rounded-xl border border-gray-800 h-44 flex flex-col items-center justify-center text-center p-4" id="ia-image-box">
+                                        <i class="fa-solid fa-photo-film text-gray-600 text-3xl mb-2"></i>
+                                        <p class="text-xs text-gray-400">La sugerencia visual y prompts estéticos optimizados para Midjourney/Canva saldrán aquí.</p>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wide">Ángulo de Venta Recomendado</h4>
+                                        <p class="text-xs text-gray-300 bg-[#0d131f] p-3 rounded-lg border border-gray-800" id="ia-angulo-box">Muestra el "Antes" (frustración, falta de dinero o tiempo) contra el "Después" utilizando el producto como puente.</p>
+                                    </div>
+                                </div>
+
+                                <!-- 💰 ZONA DE ADS NATIVOS / MONETIZACIÓN -->
+                                <div class="border-t border-gray-800 pt-6">
+                                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3"><i class="fa-solid fa-rectangle-ad mr-1"></i> Herramientas Recomendadas (Patrocinado)</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <!-- Anuncio 1: Hosting -->
+                                        <a href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-blue-950/30 to-indigo-950/20 border border-blue-900/30 hover:border-blue-500/50 transition-all group">
+                                            <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform">
+                                                <i class="fa-solid fa-server"></i>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <h5 class="text-xs font-bold text-gray-200 truncate">Hosting Pro Especial IA</h5>
+                                                <p class="text-[11px] text-gray-400 truncate">Dominios .NET con 60% OFF</p>
+                                            </div>
+                                            <i class="fa-solid fa-chevron-right text-xs text-gray-600 group-hover:text-blue-400 pl-2"></i>
+                                        </a>
+
+                                        <!-- Anuncio 2: Contingencia -->
+                                        <a href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-purple-950/30 to-pink-950/20 border border-purple-900/30 hover:border-purple-500/50 transition-all group">
+                                            <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:scale-105 transition-transform">
+                                                <i class="fa-solid fa-shield-halved"></i>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <h5 class="text-xs font-bold text-gray-200 truncate">Packs de Contingencia</h5>
+                                                <p class="text-[11px] text-gray-400 truncate">Evitá baneos en Facebook Ads</p>
+                                            </div>
+                                            <i class="fa-solid fa-chevron-right text-xs text-gray-600 group-hover:text-purple-400 pl-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 2: CONTROL DE INGRESOS Y GASTOS -->
+                <div id="tab-finanzas" class="tab-content hidden space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-[#111827] rounded-2xl p-6 border border-gray-800 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Ingresos Totales</p>
+                                <h3 class="text-2xl font-bold text-green-400" id="finanzas-ingresos-total">$0.00</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 text-xl">
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+                            </div>
+                        </div>
+                        <div class="bg-[#111827] rounded-2xl p-6 border border-gray-800 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Gastos Totales</p>
+                                <h3 class="text-2xl font-bold text-red-400" id="finanzas-gastos-total">$0.00</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl">
+                                <i class="fa-solid fa-arrow-trend-down"></i>
+                            </div>
+                        </div>
+                        <div class="bg-[#111827] rounded-2xl p-6 border border-gray-800 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Balance Neto</p>
+                                <h3 class="text-2xl font-bold text-blue-400" id="finanzas-balance-total">$0.00</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-xl">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-1 bg-[#111827] rounded-2xl p-6 border border-gray-800 space-y-4">
+                            <div class="flex items-center gap-2.5 pb-4 border-b border-gray-800">
+                                <i class="fa-solid fa-cash-register text-emerald-400"></i>
+                                <h3 class="font-bold text-gray-200">Registrar Movimiento</h3>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Tipo de Flujo</label>
+                                <select id="fin-tipo" class="w-full bg-[#1f2937] border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 focus:outline-none focus:border-blue-500">
+                                    <option value="ingreso">💰 Ingreso / Venta Entrante</option>
+                                    <option value="gasto">📉 Gasto / Inversión Saliente</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Monto</label>
+                                <div class="relative">
+                                    <i class="fa-solid fa-dollar-sign absolute left-4 top-3.5 text-gray-500 text-sm"></i>
+                                    <input type="number" id="fin-monto" placeholder="0.00" class="w-full bg-[#1f2937] border border-gray-700 rounded-xl pl-10 pr-4 py-3 text-sm text-gray-200 focus:outline-none focus:border-blue-500">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Concepto / Descripción</label>
+                                <input type="text" id="fin-concepto" placeholder="Ej: Venta de curso Hotmart..." class="w-full bg-[#1f2937] border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 focus:outline-none focus:border-blue-500">
+                            </div>
+                            <button onclick="agregarMovimientoFinanciero()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold py-3 px-4 rounded-xl text-sm shadow-lg shadow-emerald-600/10 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Guardar en Caja
+                            </button>
+                        </div>
+
+                        <div class="lg:col-span-2 bg-[#111827] rounded-2xl p-6 border border-gray-800 flex flex-col h-[380px]">
+                            <div class="flex items-center justify-between pb-4 border-b border-gray-800 mb-4">
+                                <div class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-list-check text-blue-400"></i>
+                                    <h3 class="font-bold text-gray-200">Libro Contable Diario</h3>
+                                </div>
+                            </div>
+                            <div class="flex-1 overflow-y-auto rounded-xl border border-gray-800 bg-[#0d131f] divide-y divide-gray-800" id="finanzas-lista">
+                                <p class="text-center text-xs text-gray-500 py-12" id="finanzas-vacio">No hay registros financieros cargados hoy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 3: CONECTAR REDES SOCIALES -->
+                <div id="tab-redes" class="tab-content hidden space-y-6">
+                    <div class="bg-[#111827] rounded-2xl p-6 border border-gray-800 max-w-2xl">
+                        <div class="pb-4 border-b border-gray-800 mb-6">
+                            <h3 class="font-bold text-gray-200 text-base">Vinculación de Canales Oficiales</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-[#0d131f] border border-gray-800 rounded-xl">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-blue-600/10 text-blue-500 border border-blue-600/20 flex items-center justify-center text-lg">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-semibold text-gray-200">Facebook Business Center</h4>
+                                        <p class="text-xs text-gray-500" id="status-fb">Estado: Desconectado</p>
+                                    </div>
+                                </div>
+                                <button onclick="toggleRedSocial('fb')" id="btn-fb" class="text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl transition-all">Conectar Canal</button>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-[#0d131f] border border-gray-800 rounded-xl">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-pink-600/10 text-pink-500 border border-pink-600/20 flex items-center justify-center text-lg">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-semibold text-gray-200">Instagram Profesional Account</h4>
+                                        <p class="text-xs text-gray-500" id="status-ig">Estado: Desconectado</p>
+                                    </div>
+                                </div>
+                                <button onclick="toggleRedSocial('ig')" id="btn-ig" class="text-xs font-semibold bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-xl transition-all">Conectar Canal</button>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-[#0d131f] border border-gray-800 rounded-xl">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-white/5 text-white border border-white/10 flex items-center justify-center text-lg">
+                                        <i class="fa-brands fa-tiktok"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-semibold text-gray-200">TikTok Creator Studio</h4>
+                                        <p class="text-xs text-gray-500" id="status-tk">Estado: Desconectado</p>
+                                    </div>
+                                </div>
+                                <button onclick="toggleRedSocial('tk')" id="btn-tk" class="text-xs font-semibold bg-white hover:bg-gray-100 text-[#0b0f19] px-4 py-2 rounded-xl transition-all">Conectar Canal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 4: SISTEMA DE AFILIADOS -->
+                <div id="tab-afiliados" class="tab-content hidden space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-1 bg-[#111827] rounded-2xl p-6 border border-gray-800 space-y-5">
+                            <div class="pb-4 border-b border-gray-800">
+                                <h3 class="font-bold text-gray-200">Recomienda y Gana 30%</h3>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Tu Enlace de Afiliado</label>
+                                <div class="flex gap-2">
+                                    <input type="text" readonly value="https://mihubweb.vercel.app/?ref=demo123" id="afiliado-link" class="flex-1 bg-[#0d131f] border border-gray-700 rounded-xl px-3 py-2.5 text-xs text-gray-300 focus:outline-none">
+                                    <button onclick="copiarLinkAfiliado()" class="bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white px-3 py-2.5 rounded-xl text-xs font-medium transition-colors">
+                                        <i class="fa-regular fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="pt-2">
+                                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Método de Retiro</label>
+                                <select class="w-full bg-[#1f2937] border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 focus:outline-none mb-3">
+                                    <option value="paypal">PayPal</option>
+                                    <option value="cbu">CBU Local</option>
+                                    <option value="usdt">USDT (Red TRC20)</option>
+                                </select>
+                                <input type="text" placeholder="Correo, CBU o billetera..." class="w-full bg-[#1f2937] border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 focus:outline-none">
+                            </div>
+                            <button onclick="alert('Datos guardados.')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-all">Guardar Método de Pago</button>
+                        </div>
+
+                        <div class="lg:col-span-2 bg-[#111827] rounded-2xl p-6 border border-gray-800">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                <div class="bg-[#0d131f] border border-gray-800 p-4 rounded-xl text-center">
+                                    <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Clics Totales</p>
+                                    <h4 class="text-xl font-bold text-white">1,240</h4>
+                                </div>
+                                <div class="bg-[#0d131f] border border-gray-800 p-4 rounded-xl text-center">
+                                    <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Ventas</p>
+                                    <h4 class="text-xl font-bold text-emerald-400">18</h4>
+                                </div>
+                                <div class="bg-[#0d131f] border border-gray-800 p-4 rounded-xl text-center">
+                                    <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Saldo</p>
+                                    <h4 class="text-xl font-bold text-blue-400">$162.00 USD</h4>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Ranking Global</h4>
+                                <div class="space-y-2.5 bg-[#0d131f] border border-gray-800 rounded-xl p-4">
+                                    <div class="flex justify-between text-xs"><span class="text-gray-300">🥇 1. @marcos_growth</span><span class="text-emerald-400 font-semibold">$1,450.00 USD</span></div>
+                                    <div class="flex justify-between text-xs"><span class="text-gray-300">🥈 2. @agencia_mkt</span><span class="text-emerald-400 font-semibold">$980.00 USD</span></div>
+                                    <div class="flex justify-between text-xs"><span class="text-gray-300">🥉 3. @tu_link_afiliado</span><span class="text-emerald-400 font-semibold">$162.00 (Tú)</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PESTAÑA 5: PANEL DE ADMIN SECRETO -->
+                <div id="tab-admin" class="tab-content hidden space-y-6">
+                    <div class="border-b border-red-900/30 pb-4 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-bold text-red-400 text-lg flex items-center gap-2"><i class="fa-solid fa-user-shield"></i> Consola Central de Administración</h3>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="bg-[#111827] border border-gray-800 p-5 rounded-2xl"><p class="text-[11px] text-gray-400 uppercase tracking-wide mb-1">MRR Total</p><h4 class="text-xl font-bold text-white">$4,850.00 USD</h4></div>
+                        <div class="bg-[#111827] border border-gray-800 p-5 rounded-2xl"><p class="text-[11px] text-gray-400 uppercase tracking-wide mb-1">Planes Pro/Dúo</p><h4 class="text-xl font-bold text-blue-400">$2,100.00 USD</h4></div>
+                        <div class="bg-[#111827] border border-gray-800 p-5 rounded-2xl"><p class="text-[11px] text-gray-400 uppercase tracking-wide mb-1">Plan Agencia</p><h4 class="text-xl font-bold text-purple-400">$2,750.00 USD</h4></div>
+                        <div class="bg-[#111827] border border-gray-800 p-5 rounded-2xl"><p class="text-[11px] text-gray-400 uppercase tracking-wide mb-1">Margen Neto</p><h4 class="text-xl font-bold text-emerald-400">84.2%</h4></div>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2 bg-[#111827] border border-gray-800 rounded-2xl p-6 flex flex-col h-[350px]">
+                            <div class="flex items-center justify-between pb-4 border-b border-gray-800 mb-4"><h4 class="font-bold text-gray-200 text-sm">Gestión de Clientes y Fraudes</h4></div>
+                            <div class="flex-1 overflow-y-auto rounded-xl border border-gray-800 bg-[#0d131f] divide-y divide-gray-800">
+                                <div class="p-3.5 flex justify-between items-center text-xs">
+                                    <div><p class="font-semibold text-gray-200">Juan Pérez (juan@gmail.com)</p><p class="text-[10px] text-gray-500">Plan: Agencia | IP: 181.46.22.10</p></div>
+                                    <div class="flex gap-1.5"><button class="bg-amber-500/10 text-amber-400 px-2 py-1 rounded text-[10px]">Pausar</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-1 bg-[#111827] border border-gray-800 rounded-2xl p-6 flex flex-col h-[350px]">
+                            <div class="pb-4 border-b border-gray-800 mb-4"><h4 class="font-bold text-gray-200 text-sm">Pagos de Afiliados</h4></div>
+                            <div class="flex-1 overflow-y-auto bg-[#0d131f] rounded-xl border border-gray-800 p-3 flex flex-col justify-center items-center text-center">
+                                <i class="fa-solid fa-circle-check text-emerald-500/20 text-3xl mb-2"></i><p class="text-xs font-semibold text-gray-300">¡Todo al día!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
     </div>
-    <div style="display:flex;gap:24px;margin-top:24px;font-size:13px;color:#888">
-      <span>✅ Sin tarjeta</span>
-      <span>✅ 7 días gratis</span>
-      <span>✅ Cancelás cuando quieras</span>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <div style="text-align:center;color:#667eea">
-      <img src="producto-hub.png" alt="Affiliate Hub AI" style="max-width:100%;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.1)">
-      <p style="font-size:14px;font-weight:600;margin-top:12px">+ IA que trabaja por vos</p>
-    </div>
-  </div>
-</section>
 
-<!-- ── VIDEO ── -->
-<section class="video-sec" id="video">
-  <h2>🎬 Mirá lo fácil que es</h2>
-  <p class="sub">En menos de 1 minuto generás una campaña completa y la publicás en tus redes.</p>
-  <div class="video-container">
-    <iframe src="https://www.youtube.com/embed/v7KbockagSI?autoplay=1&mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-  </div>
-</section>
+    <!-- LÓGICA DE PROGRAMACIÓN -->
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+            document.querySelectorAll('aside nav button').forEach(button => button.className = "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-gray-400 hover:bg-gray-800/50 hover:text-gray-200");
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`btn-tab-${tabId}`);
+            if (tabId === 'admin') activeBtn.className = "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg";
+            else activeBtn.className = "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg";
+        }
 
-<section class="brands">
-  <p>Usado por afiliados de</p>
-  <div>Hotmart · Kiwify · Eduzz · Monetizze · Braip · Udemy</div>
-</section>
+        function adaptarFormularioIA() {
+            const rubro = document.getElementById('ia-rubro').value;
+            const wrapperHotmart = document.getElementById('wrapper-link-hotmart');
+            if (rubro === 'hotmart') wrapperHotmart.classList.remove('hidden');
+            else wrapperHotmart.classList.add('hidden');
+        }
 
-<section class="features">
-  <h2>Todo lo que necesitás en un solo lugar</h2>
-  <p class="sub">Dejá de usar 10 herramientas. Centralizá todo tu marketing de afiliados.</p>
-  <div class="features-grid">
-    <div class="feature-card"><div class="icon">🤖</div><h3>Generador AI</h3><p>Pegá el link de tu producto y la IA genera página de ventas, copy, imágenes y visuales al instante.</p></div>
-    <div class="feature-card"><div class="icon">📱</div><h3>Publicación 1 clic</h3><p>Conectá Instagram, TikTok y Facebook. Publicá directo sin salir de la plataforma.</p></div>
-    <div class="feature-card"><div class="icon">🖼️</div><h3>Imágenes con IA</h3><p>La IA genera imágenes para tus posts basadas en tu producto. O subí las tuyas.</p></div>
-    <div class="feature-card"><div class="icon">🔗</div><h3>Enlaces con tracking</h3><p>Acortá hotlinks, asigná fuente (TikTok, IG, YouTube) y rastreá cada clic.</p></div>
-    <div class="feature-card"><div class="icon">📄</div><h3>Clonador de páginas</h3><p>Cloná páginas de ventas en tu dominio para instalar píxeles de Meta, Google y TikTok.</p></div>
-    <div class="feature-card"><div class="icon">👁️</div><h3>Vista previa redes</h3><p>Mirá cómo queda tu contenido en Instagram, TikTok y Facebook ANTES de publicar.</p></div>
-  </div>
-</section>
+        async function ejecutarGeneracionIA() {
+            const rubro = document.getElementById('ia-rubro').value;
+            const plantilla = document.getElementById('ia-plantilla').value;
+            const link = document.getElementById('ia-link').value;
+            const idea = document.getElementById('ia-idea').value;
+            const publico = document.getElementById('ia-publico').value;
+            
+            const outputBox = document.getElementById('ia-output');
+            const imageBox = document.getElementById('ia-image-box');
+            const anguloBox = document.getElementById('ia-angulo-box');
+            const btnText = document.getElementById('text-btn-ia');
+            const btn = document.getElementById('btn-generar-ia');
+            const creditosText = document.getElementById('creditos-count');
 
-<!-- ── BONUS ── -->
-<section class="bonus-sec">
-  <h2>🎁 Bonos exclusivos por lanzamiento</h2>
-  <p class="sub" style="text-align:center;color:#888;font-size:16px;margin-top:8px">Llevate estos bonos GRATIS al comprar cualquier plan pago</p>
-  <div class="bonus-grid">
-    <div class="bonus-card">
-      <div class="badge-b">BONO 1</div>
-      <div class="icon-b">📚</div>
-      <h3>Guía de Marketing Viral</h3>
-      <p>Estrategias probadas para viralizar tus publicaciones de afiliado en TikTok e Instagram.</p>
-      <div class="value">Valor: $27</div>
-    </div>
-    <div class="bonus-card">
-      <div class="badge-b">BONO 2</div>
-      <div class="icon-b">🎯</div>
-      <h3>Plantillas de Copys</h3>
-      <p>50 plantillas de copywriting para diferentes nichos. Solo completás y publicás.</p>
-      <div class="value">Valor: $37</div>
-    </div>
-    <div class="bonus-card">
-      <div class="badge-b">BONO 3</div>
-      <div class="icon-b">👥</div>
-      <h3>Comunidad Privada</h3>
-      <p>Grupo exclusivo de afiliados donde compartimos estrategias y nos ayudamos.</p>
-      <div class="value">Valor: $47/mes</div>
-    </div>
-  </div>
-  <p style="text-align:center;margin-top:24px;font-size:14px;color:#f59e0b;font-weight:600">🎁 Bonos por tiempo limitado · Valor total: <s>$111</s> GRATIS</p>
-</section>
+            if (!idea.trim()) { alert("Por favor, escribe de qué trata tu campaña."); return; }
+            let creditosActuales = parseInt(creditosText.innerText);
+            if (creditosActuales <= 0) { alert("Sin créditos."); return; }
 
-<section class="how">
-  <h2>Cómo funciona</h2>
-  <div class="steps">
-    <div class="step"><div class="num">1</div><h3>Conectá tu producto</h3><p>Pegá el link de Hotmart, tu público objetivo y elegí una imagen o generala con IA.</p></div>
-    <div class="step"><div class="num">2</div><h3>La IA genera todo</h3><p>En 5 segundos tenés página de ventas, copys, imágenes y visuales para tus redes.</p></div>
-    <div class="step"><div class="num">3</div><h3>Vista previa y publicá</h3><p>Mirá cómo queda en cada red social y publicá con 1 clic. Así de simple.</p></div>
-  </div>
-</section>
+            btn.disabled = true; btnText.innerText = "Procesando...";
+            outputBox.innerText = "Pensando el copy perfecto... 🤖✨";
 
-<section class="plans-section" id="planes">
-  <h2>Elegí tu plan</h2>
-  <p class="sub">Empezá gratis. Actualizá cuando necesites más funciones.</p>
-  <div class="plans">
-    <div class="plan">
-      <h3>Starter</h3>
-      <div class="price">$0 <span>/ mes</span></div>
-      <ul>
-        <li>✅ 3 campañas AI / mes</li>
-        <li>✅ 1 red social conectada</li>
-        <li>✅ 5 enlaces acortados</li>
-        <li>✅ Imágenes IA básicas</li>
-        <li>❌ Vista previa redes</li>
-        <li>❌ Publicación automática</li>
-        <li class="no">❌ Bonos exclusivos</li>
-      </ul>
-      <a href="https://go.hotmart.com/Q105925910O" class="btn-plan">Comenzar gratis</a>
-    </div>
-    <div class="plan popular">
-      <div class="popular-badge">RECOMENDADO</div>
-      <h3>Pro</h3>
-      <div class="price"><span style="font-size:18px;color:#ef4444;font-weight:700;text-decoration:line-through">$97</span> $47 <span>/ mes</span></div>
-      <p style="color:#ef4444;font-size:13px;font-weight:600">🔥 50% OFF lanzamiento</p>
-      <ul>
-        <li>✅ Campañas AI ilimitadas</li>
-        <li>✅ 3 redes sociales conectadas</li>
-        <li>✅ Enlaces ilimitados + tracking</li>
-        <li>✅ Imágenes IA avanzadas</li>
-        <li>✅ Vista previa en redes</li>
-        <li>✅ Publicación automática</li>
-        <li>✅ Clonador + páginas de bono</li>
-        <li>✅ Bonos exclusivos (valor $111)</li>
-      </ul>
-      <a href="https://go.hotmart.com/Q105925910O" class="btn-plan btn-plan-pro">Elegir Pro — $47/mes</a>
-    </div>
-    <div class="plan">
-      <h3>Elite</h3>
-      <div class="price">$97 <span>/ mes</span></div>
-      <ul>
-        <li>✅ Todo lo de Pro</li>
-        <li>✅ Todas las redes ilimitadas</li>
-        <li>✅ Clonación ilimitada</li>
-        <li>✅ Programación de posts</li>
-        <li>✅ Estadísticas avanzadas</li>
-        <li>✅ Soporte prioritario 24/7</li>
-        <li>✅ Comunidad privada</li>
-      </ul>
-      <a href="https://go.hotmart.com/Q105925910O" class="btn-plan">Elegir Elite — $97/mes</a>
-    </div>
-  </div>
-</section>
+            try {
+                const respuesta = await fetch('/api/generar-copy', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ rubro, plantilla, link, idea, publico })
+                });
+                const data = await respuesta.json();
+                if (respuesta.ok && data.success) {
+                    outputBox.innerText = data.texto;
+                    creditosText.innerText = creditosActuales - 1;
+                    imageBox.innerHTML = `<p class="text-[11px] text-gray-300 italic">"High quality photo workspace neon light accents --ar 16:9"</p>`;
+                    
+                    // Actualiza el ángulo según rubro de respuesta
+                    anguloBox.innerText = `Enfoque adaptado para ${rubro.toUpperCase()}.`;
+                } else {
+                    outputBox.innerText = `Error: ${data.error || 'No generado'}`;
+                }
+            } catch (error) {
+                outputBox.innerText = "Error de red. Revisa tus variables en Vercel.";
+            } finally {
+                btn.disabled = false; btnText.innerText = "Generar Campaña con IA";
+            }
+        }
 
-<section class="testimonials">
-  <h2>Lo que dicen quienes ya lo usan</h2>
-  <div class="test-grid">
-    <div class="test-card">
-      <div class="stars">★★★★★</div>
-      <blockquote>"Antes tardaba 2 horas en preparar una publi para Instagram. Con Affiliate Hub lo hago en 5 minutos. La IA es impresionante."</blockquote>
-      <div class="author"><div class="avatar">CM</div><div><div class="name">Carlos M.</div><div class="role">Afiliado Hotmart · 8 meses</div></div></div>
-    </div>
-    <div class="test-card">
-      <div class="stars">★★★★★</div>
-      <blockquote>"La vista previa en redes me salvó. Antes publicaba y quedaba horrible. Ahora veo cómo queda antes. Game changer."</blockquote>
-      <div class="author"><div class="avatar">LG</div><div><div class="name">Laura G.</div><div class="role">Afiliada · 2 años</div></div></div>
-    </div>
-    <div class="test-card">
-      <div class="stars">★★★★★</div>
-      <blockquote>"Las imágenes que genera la IA basadas en mi producto son increíbles. Parecen hechas por un diseñador."</blockquote>
-      <div class="author"><div class="avatar">PR</div><div><div class="name">Pedro R.</div><div class="role">Afiliado full-time</div></div></div>
-    </div>
-  </div>
-</section>
+        function copyContenidoIA() {
+            const texto = document.getElementById('ia-output').innerText;
+            navigator.clipboard.writeText(texto); alert("¡Copiado!");
+        }
 
-<!-- ── FAQ ── -->
-<section class="faq-sec">
-  <h2>❓ Preguntas frecuentes</h2>
-  <div class="faq-item">
-    <summary>¿Necesito saber diseñar o escribir?</summary>
-    <p>No. La IA hace todo por vos. Solo ponés el link de tu producto y la plataforma genera página de ventas, copys, imágenes y visuales automáticamente.</p>
-  </div>
-  <div class="faq-item">
-    <summary>¿Puedo probar antes de pagar?</summary>
-    <p>Sí. El plan Starter es gratis para siempre con 3 campañas por mes. Sin tarjeta de crédito.</p>
-  </div>
-  <div class="faq-item">
-    <summary>¿Cómo conecto mis redes sociales?</summary>
-    <p>Desde "Mis Redes" conectás Instagram, TikTok, Facebook y YouTube con 1 clic. Usamos las APIs oficiales de cada plataforma.</p>
-  </div>
-  <div class="faq-item">
-    <summary>¿Las imágenes las genera la IA?</summary>
-    <p>Sí. La IA genera imágenes únicas basadas en el nombre de tu producto. También podés subir las tuyas.</p>
-  </div>
-  <div class="faq-item">
-    <summary>¿Puedo cancelar cuando quiera?</summary>
-    <p>Sí. Sin multas ni contratos. Cancelás desde tu panel y seguís usando el plan gratis.</p>
-  </div>
-</section>
+        let historialFinanzas = [];
+        
+        async function agregarMovimientoFinanciero() {
+            const tipo = document.getElementById('fin-tipo').value;
+            const monto = parseFloat(document.getElementById('fin-monto').value);
+            const concepto = document.getElementById('fin-concepto').value;
+            
+            if (!monto || !concepto.trim()) { alert("Por favor, completa todos los campos."); return; }
 
-<section class="cta-section">
-  <h2>Empezá hoy, gratis</h2>
-  <p>Probá la plataforma sin pagar. Sin tarjeta. Sin riesgos. 7 días de prueba en Pro.</p>
-  <a href="https://go.hotmart.com/Q105925910O" class="btn-white">🚀 Comenzar gratis ahora</a>
-  <p class="guarantee">🔒 7 días gratis · Cancelá cuando quieras · Sin compromiso</p>
-</section>
+            // 1. Agregado instantáneo visual para feedback inmediato
+            historialFinanzas.unshift({ tipo, monto, concepto, fecha: new Date().toLocaleTimeString() });
+            actualizarCajaFinanciera();
+            
+            // Limpieza de campos
+            document.getElementById('fin-monto').value = ''; 
+            document.getElementById('fin-concepto').value = '';
 
-<footer class="footer">
-  <p>© 2026 Affiliate Hub AI. Todos los derechos reservados.</p>
-  <p style="margin-top:4px;">Hecho para afiliados de Hotmart · Contacto: soporte@affiliatehub.ai</p>
-</footer>
+            // 2. Envío en segundo plano al servidor Postgres (Neon)
+            try {
+                const respuesta = await fetch('/api/guardar-finanzas', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tipo, monto, concepto })
+                });
+                const data = await respuesta.json();
+                if (!respuesta.ok || !data.success) {
+                    console.error("Error al guardar en la base de datos:", data.error);
+                }
+            } catch (error) {
+                console.error("Error de red al intentar conectar con Neon:", error);
+            }
+        }
 
-<script>
-// Reemplazar links de Hotmart cuando crees el producto
-// document.querySelectorAll('a[href*="hotmart.com/producto"]').forEach(a => {
-//   a.href = 'https://hotmart.com/tu-producto-real';
-// });
-</script>
+        function actualizarCajaFinanciera() {
+            const lista = document.getElementById('finanzas-lista');
+            const totalIngresos = document.getElementById('finanzas-ingresos-total');
+            const totalGastos = document.getElementById('finanzas-gastos-total');
+            const totalBalance = document.getElementById('finanzas-balance-total');
 
+            let ingresos = 0; let gastos = 0; lista.innerHTML = '';
+            
+            if (historialFinanzas.length === 0) {
+                lista.innerHTML = `<p class="text-center text-xs text-gray-500 py-12" id="finanzas-vacio">No hay registros financieros cargados hoy.</p>`;
+                totalIngresos.innerText = "$0.00"; totalGastos.innerText = "$0.00"; totalBalance.innerText = "$0.00";
+                return;
+            }
+
+            historialFinanzas.forEach(mov => {
+                if (mov.tipo === 'ingreso') ingresos += mov.monto; else gastos += mov.monto;
+                lista.innerHTML += `<div class="p-3.5 flex justify-between text-xs border-b border-gray-800"><div><p>${mov.concepto}</p></div><span class="${mov.tipo === 'ingreso'?'text-green-400':'text-red-400'}">$${mov.monto.toFixed(2)}</span></div>`;
+            });
+            
+            let balance = ingresos - gastos;
+            totalIngresos.innerText = `$${ingresos.toFixed(2)}`; totalGastos.innerText = `$${gastos.toFixed(2)}`; totalBalance.innerText = `$${balance.toFixed(2)}`;
+        }
+
+        // Variable global para controlar las conexiones de las cuentas reales
+        let redesConectadas = { fb: false, ig: false, tk: false };
+
+        function toggleRedSocial(plataforma) {
+            const btn = document.getElementById(`btn-${plataforma}`);
+            const status = document.getElementById(`status-${plataforma}`);
+            
+            if (!redesConectadas[plataforma]) {
+                redesConectadas[plataforma] = true;
+                btn.innerText = "Desconectar";
+                btn.className = "text-xs font-semibold bg-red-600/20 text-red-400 border border-red-900/30 hover:bg-red-600/30 px-4 py-2 rounded-xl transition-all";
+                status.innerText = "Estado: Conectado (Neon Hub)";
+                status.className = "text-xs text-emerald-400 font-medium";
+            } else {
+                redesConectadas[plataforma] = false;
+                if (plataforma === 'fb') btn.className = "text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl transition-all";
+                if (plataforma === 'ig') btn.className = "text-xs font-semibold bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-xl transition-all";
+                if (plataforma === 'tk') btn.className = "text-xs font-semibold bg-white hover:bg-gray-100 text-[#0b0f19] px-4 py-2 rounded-xl transition-all";
+                
+                btn.innerText = "Conectar Canal";
+                status.innerText = "Estado: Desconectado";
+                status.className = "text-xs text-gray-500";
+            }
+            console.log("Cuentas vinculadas actualmente:", redesConectadas);
+        }
+
+        function copiarLinkAfiliado() {
+            const link = document.getElementById('afiliado-link'); link.select(); document.execCommand('copy'); alert("¡Copiado!");
+        }
+
+        // Evento interactivo para el cambio dinámico de las plantillas en pantalla
+        document.getElementById('ia-plantilla').addEventListener('change', function() {
+            const plantillaActiva = this.value;
+            const anguloBox = document.getElementById('ia-angulo-box');
+            
+            if (plantillaActiva === 'tiktok_script') {
+                anguloBox.innerText = "Fórmula AIDA activa: Gancho en los primeros 3 segundos + Retención con beneficios + Llamado a la acción directo.";
+            } else if (plantillaActiva === 'instagram_feed') {
+                anguloBox.innerText = "Formato Reel/Feed activo: Enfoque estético, micro-gancho en texto y uso estratégico de hashtags relevantes.";
+            } else if (plantillaActiva === 'facebook_ads') {
+                anguloBox.innerText = "Copy de Conversión activo: Enfoque directo al dolor del cliente, gatillos de escasez y urgencia para venta en frío.";
+            } else {
+                anguloBox.innerText = "Formato Profesional activo: Redacción formal enfocada en métricas, autoridad y valor de mercado.";
+            }
+        });
+    </script>
 </body>
 </html>
