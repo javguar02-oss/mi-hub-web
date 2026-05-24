@@ -1,12 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | MiHub Web</title>
+    <style>
+        body { margin: 0; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #1a1a2e; color: white; }
+        .box { background: #16213e; padding: 40px; border-radius: 20px; width: 350px; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: none; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #e94560; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
 <body>
-    <button id="miBoton">¡PROBAME!</button>
+    <div class="box">
+        <h2>Iniciar Sesión</h2>
+        <input type="email" id="email" placeholder="Correo electrónico">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="intentarLogin()">Entrar</button>
+    </div>
 
     <script>
-        document.getElementById('miBoton').addEventListener('click', function() {
-            alert('¡Hola! El botón funciona perfectamente.');
-        });
+        async function intentarLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    localStorage.setItem('userEmail', email);
+                    window.location.href = "/dashboard.html";
+                } else {
+                    alert("Error: " + (data.message || "Credenciales incorrectas"));
+                }
+            } catch (error) {
+                alert("Error de conexión con el servidor.");
+                console.error("Error:", error);
+            }
+        }
     </script>
 </body>
 </html>
