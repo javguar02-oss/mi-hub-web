@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <title>Acceso | Affiliate Hub AI</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f4f4f9; }
-        .box { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 320px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
-        .link { text-align: center; margin-top: 15px; font-size: 13px; cursor: pointer; color: #667eea; }
+        body { margin: 0; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #1a1a2e; color: white; }
+        .box { background: #16213e; padding: 40px; border-radius: 20px; width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: none; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #e94560; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .link { margin-top: 15px; color: #a9a9a9; cursor: pointer; font-size: 0.9em; }
     </style>
 </head>
 <body>
     <div class="box">
         <h2 id="title">Iniciar Sesión</h2>
-        <input type="email" id="email" placeholder="Tu correo">
+        <input type="text" id="nombre" placeholder="Nombre (solo registro)" style="display:none">
+        <input type="email" id="email" placeholder="Correo electrónico">
         <input type="password" id="password" placeholder="Contraseña">
-        <button id="mainBtn" onclick="login()">Entrar</button>
+        <button id="mainBtn" onclick="procesar()">Entrar</button>
         <div class="link" onclick="toggleMode()" id="toggleText">¿No tenés cuenta? Registrate</div>
     </div>
-
     <script>
         let isLogin = true;
         function toggleMode() {
@@ -27,25 +27,31 @@
             document.getElementById('title').innerText = isLogin ? "Iniciar Sesión" : "Registrarse";
             document.getElementById('mainBtn').innerText = isLogin ? "Entrar" : "Crear Cuenta";
             document.getElementById('toggleText').innerText = isLogin ? "¿No tenés cuenta? Registrate" : "¿Ya tenés cuenta? Ingresá";
+            document.getElementById('nombre').style.display = isLogin ? "none" : "block";
         }
-
-        async function login() {
-            const endpoint = isLogin ? '/api/login' : '/api/register';
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        async function procesar() {
+            const emailInput = document.getElementById('email').value;
+            const data = { 
+                email: emailInput, 
+                password: document.getElementById('password').value,
+                nombre: document.getElementById('nombre').value 
+            };
             
-            const res = await fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
+            const res = await fetch(isLogin ? '/api/login' : '/api/register', {
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
             });
-
-            const data = await res.json();
-            if (data.success) {
-                alert("Bienvenido");
+            
+            const resData = await res.json();
+            
+            if (resData.success) {
+                // Guardamos el email para que el dashboard lo reconozca
+                localStorage.setItem('userEmail', emailInput); 
+                alert("¡Bienvenido!");
                 window.location.href = "/dashboard.html";
-            } else {
-                alert("Error: " + data.message);
+            } else { 
+                alert(resData.message); 
             }
         }
     </script>

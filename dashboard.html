@@ -605,5 +605,16 @@
             }
         });
     </script>
+    <!-- LÓGICA DE PROGRAMACIÓN -->
+    <script>
+        // --- ESTO ES LO QUE FALTA AGREGAR ---
+        // Validamos que el usuario haya pasado por el "Portero" (index.html)
+        if (!localStorage.getItem('userEmail')) {
+            window.location.href = "/index.html";
+        }
+        // ------------------------------------
+
+        function switchTab(tabId) {
+            // ... (el resto de tu código sigue igual)s
 </body>
 </html>
