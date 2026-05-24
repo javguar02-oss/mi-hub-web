@@ -1,36 +1,12 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Acceso | MiHub Web</title>
-    <style>
-        body { margin: 0; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #1a1a2e; color: white; }
-        .box { background: #16213e; padding: 40px; border-radius: 20px; width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: none; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #e94560; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-    </style>
-</head>
+<html>
 <body>
-    <div class="box">
-        <h2 id="title">Iniciar Sesión</h2>
-        <input type="email" id="email" placeholder="javguar02@gmail.com">
-        <input type="password" id="password" placeholder="admin123">
-<button onclick="alert('El botón funciona'); procesar()">Entrar</button>    </div>
+    <button id="miBoton">¡PROBAME!</button>
+
     <script>
-        async function procesar() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const res = await fetch('/api/login', {
-                method: 'POST', 
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ email, password })
-            });
-            const data = await res.json();
-            if (data.success) {
-                localStorage.setItem('userEmail', email);
-                window.location.href = "/dashboard.html";
-            } else { alert("Datos incorrectos"); }
-        }
+        document.getElementById('miBoton').addEventListener('click', function() {
+            alert('¡Hola! El botón funciona perfectamente.');
+        });
     </script>
 </body>
 </html>
