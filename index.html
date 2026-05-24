@@ -2,57 +2,34 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Acceso | Affiliate Hub AI</title>
+    <title>Acceso | MiHub Web</title>
     <style>
         body { margin: 0; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #1a1a2e; color: white; }
         .box { background: #16213e; padding: 40px; border-radius: 20px; width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         input { width: 100%; padding: 12px; margin: 10px 0; border: none; border-radius: 8px; box-sizing: border-box; }
         button { width: 100%; padding: 12px; background: #e94560; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        .link { margin-top: 15px; color: #a9a9a9; cursor: pointer; font-size: 0.9em; }
     </style>
 </head>
 <body>
     <div class="box">
         <h2 id="title">Iniciar Sesión</h2>
-        <input type="text" id="nombre" placeholder="Nombre (solo registro)" style="display:none">
-        <input type="email" id="email" placeholder="Correo electrónico">
-        <input type="password" id="password" placeholder="Contraseña">
-        <button id="mainBtn" onclick="procesar()">Entrar</button>
-        <div class="link" onclick="toggleMode()" id="toggleText">¿No tenés cuenta? Registrate</div>
-    </div>
+        <input type="email" id="email" placeholder="javguar02@gmail.com">
+        <input type="password" id="password" placeholder="admin123">
+<button onclick="alert('El botón funciona'); procesar()">Entrar</button>    </div>
     <script>
-        let isLogin = true;
-        function toggleMode() {
-            isLogin = !isLogin;
-            document.getElementById('title').innerText = isLogin ? "Iniciar Sesión" : "Registrarse";
-            document.getElementById('mainBtn').innerText = isLogin ? "Entrar" : "Crear Cuenta";
-            document.getElementById('toggleText').innerText = isLogin ? "¿No tenés cuenta? Registrate" : "¿Ya tenés cuenta? Ingresá";
-            document.getElementById('nombre').style.display = isLogin ? "none" : "block";
-        }
         async function procesar() {
-            const emailInput = document.getElementById('email').value;
-            const data = { 
-                email: emailInput, 
-                password: document.getElementById('password').value,
-                nombre: document.getElementById('nombre').value 
-            };
-            
-            const res = await fetch(isLogin ? '/api/login' : '/api/register', {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const res = await fetch('/api/login', {
                 method: 'POST', 
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
+                body: JSON.stringify({ email, password })
             });
-            
-            const resData = await res.json();
-            
-            if (resData.success) {
-                // Guardamos el email para que el dashboard lo reconozca
-                localStorage.setItem('userEmail', emailInput); 
-                alert("¡Bienvenido!");
+            const data = await res.json();
+            if (data.success) {
+                localStorage.setItem('userEmail', email);
                 window.location.href = "/dashboard.html";
-            } else { 
-                alert(resData.message); 
-            }
+            } else { alert("Datos incorrectos"); }
         }
     </script>
 </body>
